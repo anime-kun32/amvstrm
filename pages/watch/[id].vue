@@ -13,7 +13,7 @@ const switchtobackup = ref(false);
 const switchplyr = ref(0);
 
 const { data: anime } = await useFetch(
-  `${env.public.API_URL}/api/${env.public.version}/info/${getID}`,
+  `${env.public.API_URL}/meta/anilisit/info/${getID}`,
   {
     cache: "force-cache",
   }
