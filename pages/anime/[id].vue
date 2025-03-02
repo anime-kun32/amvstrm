@@ -88,53 +88,7 @@ onMounted(() => {
   updateCountdown();
 });
 
-const { data: recmedAnime, pending: recmedPending } = useLazyFetch(
-  `${env.public.API_URL}/api/${env.public.version}/recommendations/${
-    useRoute().params.id
-  }`,
-  {
-    cache: "force-cache",
-  }
-);
-
-const {
-  data: epAni,
-  pending: loadAni,
-  error: epAniError,
-} = useLazyFetch(
-  `${env.public.API_URL}/api/v1/episode/${
-    anime?.value?.id_provider === null ? "''" : anime.value?.id_provider?.idGogo
-  }`,
-  {
-    cache: "default",
-  }
-);
-const {
-  data: epAniDub,
-  pending: loadAniDub,
-  error: epDubAniError,
-} = useLazyFetch(
-  `${env.public.API_URL}/api/v1/episode/${
-    anime?.value?.id_provider === null ? "''" : anime?.value?.id_provider?.idGogoDub
-  }`,
-  {
-    cache: "default",
-  }
-);
-
-const stringInstring = '""';
-
-const formatStringDate = (year, month, day) => {
-  if (year === null && month === null && day === null) {
-    return "No EST";
-  } else if (year === "" && month === "" && day === "") {
-    return "No EST";
-  }
-
-  return `${day === null ? "" : day + "/"}${
-    month === null ? "" : month + "/"
-  }${year}`;
-};
+const recommendations = anime.value?.recommendations || [];
 </script>
 
 <template>
@@ -444,46 +398,6 @@ const formatStringDate = (year, month, day) => {
                                 />
                               </template>
                             </v-list-item>
-                            <v-list-item
-                              title="9anime/Aniwave.to"
-                              :subtitle="
-                                anime?.id_provider.id9anime == ''
-                                  ? 'Not available'
-                                  : anime?.id_provider.id9anime
-                              "
-                            >
-                              <template #append>
-                                <v-btn
-                                  icon="mdi-launch"
-                                  :href="
-                                    'https://aniwave.to/watch/' +
-                                    anime?.id_provider.id9anime
-                                  "
-                                  target="blank"
-                                  :disabled="anime?.id_provider.id9anime == ''"
-                                />
-                              </template>
-                            </v-list-item>
-                            <v-list-item
-                              title="AnimePahe"
-                              :subtitle="
-                                anime?.id_provider.idPahe == ''
-                                  ? 'Not available'
-                                  : anime?.id_provider.idPahe
-                              "
-                            >
-                              <template #append>
-                                <v-btn
-                                  icon="mdi-launch"
-                                  :href="
-                                    'https://animepahe.ru/a/' +
-                                    anime?.id_provider.idPahe
-                                  "
-                                  target="blank"
-                                  :disabled="anime?.id_provider.idPahe == ''"
-                                />
-                              </template>
-                            </v-list-item>
                           </v-list>
                           <v-list v-else>
                             <v-list-item
@@ -514,7 +428,7 @@ const formatStringDate = (year, month, day) => {
       <v-row>
         <v-col cols="12" lg="3" md="4" sm="12">
           <ClientOnly>
-            <v-card class="mb-2">
+            <v-card class="mb-4">
               <v-list lines="two">
                 <v-list-subheader> Episode release date </v-list-subheader>
                 <v-list-item
@@ -557,7 +471,6 @@ const formatStringDate = (year, month, day) => {
                     : 'No data'
                 "
               />
-
               <v-list-item
                 title="Score"
                 :subtitle="
@@ -651,6 +564,7 @@ const formatStringDate = (year, month, day) => {
             </v-list>
           </v-card>
         </v-col>
+
         <v-col>
           <v-row>
             <v-col cols="12">
@@ -699,9 +613,11 @@ const formatStringDate = (year, month, day) => {
                               ? 'Cancelled'
                               : 'No data'
                           }`"
-                          :to="(!/\/pwa\.*/.test(useRoute().path)
-                                        ? '/anime/'
-                                        : '/pwa/anime/') + item.id"
+                          :to="
+                            (!/\/pwa\.*/.test(useRoute().path)
+                              ? '/anime/'
+                              : '/pwa/anime/') + item.id
+                          "
                         >
                           <template #prepend>
                             <v-img
@@ -736,12 +652,12 @@ const formatStringDate = (year, month, day) => {
                           </v-row>
                         </v-list-item>
                         <v-list-item
-                          v-else-if="recmedAnime.results.length == 0"
+                          v-else-if="recommendations.length == 0"
                           title="No Recommendations"
                           subtitle="Not available by anilist"
                         />
                         <v-list-item
-                          v-for="(item, i) in recmedAnime.results"
+                          v-for="(item, i) in recommendations"
                           v-else
                           :key="i"
                           :title="item.title.userPreferred"
@@ -756,9 +672,11 @@ const formatStringDate = (year, month, day) => {
                               ? 'Cancelled'
                               : 'No data'
                           }`"
-                          :to="(!/\/pwa\.*/.test(useRoute().path)
-                                        ? '/anime/'
-                                        : '/pwa/anime/') + item.id"
+                          :to="
+                            (!/\/pwa\.*/.test(useRoute().path)
+                              ? '/anime/'
+                              : '/pwa/anime/') + item.id
+                          "
                         >
                           <template #prepend>
                             <v-img
@@ -793,6 +711,7 @@ const formatStringDate = (year, month, day) => {
     </v-container>
   </div>
 </template>
+
 <style scoped>
 .card-content {
   display: flex;
