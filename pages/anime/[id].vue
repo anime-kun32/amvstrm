@@ -10,7 +10,9 @@ const {
   pending: aniPending,
   error: aniError,
 } = await useFetch(
-  `${env.public.CONSUMET}/meta/anilist/info/${useRoute().params.id}`,
+  `${env.public.API_URL}/api/${env.public.version}/info/${
+    useRoute().params.id
+  }`,
   {
     cache: "force-cache",
   }
@@ -87,7 +89,9 @@ onMounted(() => {
 });
 
 const { data: recmedAnime, pending: recmedPending } = useLazyFetch(
-  `${env.public.API_URL}/api/${env.public.version}/recommendations/${useRoute().params.id}`,
+  `${env.public.API_URL}/api/${env.public.version}/recommendations/${
+    useRoute().params.id
+  }`,
   {
     cache: "force-cache",
   }
@@ -98,7 +102,9 @@ const {
   pending: loadAni,
   error: epAniError,
 } = useLazyFetch(
-  `${env.public.API_URL}/api/${env.public.version}/episode/${anime?.value?.id_provider?.idGogo || "''"}`,
+  `${env.public.API_URL}/api/v1/episode/${
+    anime?.value?.id_provider === null ? "''" : anime.value?.id_provider?.idGogo
+  }`,
   {
     cache: "default",
   }
@@ -108,7 +114,11 @@ const {
   pending: loadAniDub,
   error: epDubAniError,
 } = useLazyFetch(
-  `${env.public.API_URL}/api/${env.public.version}/episode/${anime?.value?.id_provider?.idGogoDub || "''"}`,
+  `${env.public.API_URL}/api/v1/episode/${
+    anime?.value?.id_provider === null
+      ? "''"
+      : anime?.value?.id_provider?.idGogoDub
+  }`,
   {
     cache: "default",
   }
@@ -123,7 +133,9 @@ const formatStringDate = (year, month, day) => {
     return "No EST";
   }
 
-  return `${day === null ? "" : day + "/"}${month === null ? "" : month + "/"}${year}`;
+  return `${day === null ? "" : day + "/"}${
+    month === null ? "" : month + "/"
+  }${year}`;
 };
 </script>
 
@@ -138,8 +150,7 @@ const formatStringDate = (year, month, day) => {
       text="The page you are looking for is not available"
     ></v-empty-state>
   </div>
-  <
-div v-else>
+  <div v-else>
     <v-card>
       <v-img
         v-if="anime?.bannerImage !== null"
@@ -271,8 +282,6 @@ div v-else>
                 height="auto"
                 scrollable
               >
-        
-           
                 <v-card elevation="10">
                   <v-card-title>Episode</v-card-title>
                   <v-card elevation="0">
