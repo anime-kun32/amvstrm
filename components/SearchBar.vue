@@ -5,7 +5,7 @@ const search = ref("");
 
 const debouncedSearch = useDebounceFn(async (query) => {
   const data = await $fetch(
-    `${env.public.API_URL}/api/${env.public.version}/search?q=${query}&limit=5`
+    `${env.public.API_URL}/search?q=${query}`
   );
   searchResults.value = data;
 }, 500);
