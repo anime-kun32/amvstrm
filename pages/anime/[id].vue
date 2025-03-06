@@ -89,7 +89,7 @@ onMounted(() => {
 });
 
 const { data: recmedAnime, pending: recmedPending } = useLazyFetch(
-  `${env.public.API_URL}/recommendations/${
+  `${env.public.API_URL}/recommend/${
     useRoute().params.id
   }`,
   {
