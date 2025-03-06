@@ -31,7 +31,7 @@ const {
   refresh: trenddataRefresh,
   error: trenderr,
 } = useFetch(
-  `/trending?limit=12`,
+  `${env.public.API_URL}/trending?limit=12`,
   {
     cache: "force-cache",
   }
@@ -42,7 +42,7 @@ const {
   refresh: popdataRefresh,
   error: poperr,
 } = useFetch(
-  `/popular?limit=12`,
+  `${env.public.API_URL}/popular?limit=12`,
   {
     cache: "force-cache",
   }
@@ -54,7 +54,7 @@ const {
   refresh: seasdataRefresh,
   error: seaserr,
 } = useFetch(
-  `/season/${getSeason()}/${new Date().getFullYear()}?limit=12`,
+  `${env.public.API_URL}/season/${getSeason()}/${new Date().getFullYear()}?limit=12`,
   {
     cache: "force-cache",
   }
