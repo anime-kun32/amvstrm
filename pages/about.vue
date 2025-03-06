@@ -22,9 +22,7 @@ useHead({
     <div class="pa-5" style="background-color: #212121">
       <h1><img src="/logo.png" alt="loho" height="50" /></h1>
       <p>
-        amvstrm is an open source anime streaming platform that offer free anime
-        with no ADs and install it as Android or IOS web app. <br />
-        Build with Nuxt 3, Vuetify and amvstrm's V2 API.
+        yo people , this webiste now belongs to me because i fixed the code my self no one else did it. So yeah it's mine but is still give credit to those who made the website but couldn't be botherd to fix it 
       </p>
       <div class="mt-2">
         <v-btn
