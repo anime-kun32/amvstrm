@@ -31,7 +31,7 @@ const {
   refresh: trenddataRefresh,
   error: trenderr,
 } = useFetch(
-  `${env.public.API_URL}/trending?limit=12`,
+  `${env.public.API_URL}/trending?page=1&perPage=12`,
   {
     cache: "force-cache",
   }
@@ -42,7 +42,7 @@ const {
   refresh: popdataRefresh,
   error: poperr,
 } = useFetch(
-  `${env.public.API_URL}/popular?limit=12`,
+  `${env.public.API_URL}/popular?page=1&perPage=12`,
   {
     cache: "force-cache",
   }
