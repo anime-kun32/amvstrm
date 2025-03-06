@@ -220,7 +220,7 @@ const debouncedSearch = useDebounceFn(async (query) => {
 
   try {
     const data = await $fetch(
-      `${env.public.API_URL}/api/${env.public.version}/search`,
+      `${env.public.API_URL}/search`,
       {
         method: "POST",
         body: {
