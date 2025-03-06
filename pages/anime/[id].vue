@@ -10,7 +10,7 @@ const {
   pending: aniPending,
   error: aniError,
 } = await useFetch(
-  `${env.public.API_URL}/api/${env.public.version}/info/${
+  `${env.public.API_URL}/info/${
     useRoute().params.id
   }`,
   {
@@ -89,7 +89,7 @@ onMounted(() => {
 });
 
 const { data: recmedAnime, pending: recmedPending } = useLazyFetch(
-  `${env.public.API_URL}/api/${env.public.version}/recommendations/${
+  `${env.public.API_URL}/recommendations/${
     useRoute().params.id
   }`,
   {
